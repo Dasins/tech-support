@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * The responder class represents a response generator object.
@@ -63,13 +65,19 @@ public class Responder
      * Generate a response.
      * @return A string that should be displayed as the response
      */
-    public String generateResponse(String palabra)
+    public String generateResponse(HashSet<String> frase)
     {
-        String respuesta;
-        if(respuestas.containsKey(palabra)){
+        String respuesta = "Fallo";
+        boolean coincidencia = false;
+        Iterator<String> it = frase.iterator();
+        while(!coincidencia && it.hasNext()) {
+            String palabra = it.next();
             respuesta = respuestas.get(palabra);
+            if(respuesta != null){
+                coincidencia = true;
+            }    
         }
-        else {
+        if (!coincidencia) {
             int index = generadorAleatorio.nextInt(respuestasPorDefecto.size());
             respuesta = respuestasPorDefecto.get(index);
         }
