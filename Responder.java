@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Responder
 {
     Random generadorAleatorio;
-    ArrayList<String> respuestasDefault;
+    ArrayList<String> respuestasPorDefecto;
     HashMap<String,String> respuestas;
     
     /**
@@ -21,24 +21,35 @@ public class Responder
     public Responder()
     {
         generadorAleatorio = new Random();
-        respuestasDefault = new ArrayList<>();
+        respuestasPorDefecto = new ArrayList<>();
         respuestas = new HashMap<>();
+        anadirRespuestasPorDefecto();
         anadirRespuestas();
     }
     
     /**
+     * Establece las respuestas por defecto para el robot del servicio tecnico.
+     */
+    private void anadirRespuestasPorDefecto() {
+        respuestasPorDefecto.add("Se ha detectado un uso inadecuado del robot del servicio tecnico.\n\n" + 
+                                 "Le informamos que hemos anadido una nueva penalizacion en caso de uso inadecuado del sistema\n" + 
+                                 "Si esta incidencia vuelve a repetirse,\n pondremos un punto negativo en su hoja de usuario," + 
+                                 "luego, le mataremos.");
+        respuestasPorDefecto.add("Enviaremos a un técnico entubador a reanimarlo con bálsamo péptido y adrenalina.");
+        respuestasPorDefecto.add("Nuestros monos estan trabajando en ello");
+        respuestasPorDefecto.add("Su respuesta sera procesada por nuestro buzon de spam");
+        respuestasPorDefecto.add("No le entiendo, por favor, utilice las manos para escribir su consulta");
+        respuestasPorDefecto.add("Hemos detectado numerosas incorrecciones linguisticas. Le rogamos retire a su mascota del teclado.");
+        respuestasPorDefecto.add("Pruebe a consultarlo en Google");
+        respuestasPorDefecto.add("Muy interesante, cuenteme mas...");
+        respuestasPorDefecto.add("Repita por favor, olvide prestarle atencion");
+        respuestasPorDefecto.add("Gracias por ayudarnos a ayudarlo a ayudarnos");    
+    }
+        
+    /**
      * Anade respuestas  al servicio tecnico
      */
     private void anadirRespuestas(){
-        respuestasDefault.add("Nuestros monos estan trabajando en ello");
-        respuestasDefault.add("Su respuesta sera procesada por nuestro buzon de spam");
-        respuestasDefault.add("Todos nuestros teleoperadores estan ignorandole");
-        respuestasDefault.add("No le entiendo, por favor, aprenda a escribir");
-        respuestasDefault.add("Pidale a su mascota que deje el teclado");
-        respuestasDefault.add("Pruebe a consultarlo en Google");
-        respuestasDefault.add("Muy interesante, cuenteme mas...");
-        respuestasDefault.add("Repita por favor, no le estaba escuchando");
-        respuestasDefault.add("Pruebe mas tarde, es la hora del cafe");
         respuestas.put("lento","Si nota que su equipo funciona con lentitud, pruebe a animarlo. Eso le dara confianza");
         respuestas.put("hardware","No encontramos ninguna anomalia en el hardware. Por favor, revise su software?");
         respuestas.put("software","No encontramos ninguna anomalia en el software, Por favor, revise su hardware");
@@ -59,8 +70,8 @@ public class Responder
             respuesta = respuestas.get(palabra);
         }
         else {
-            int index = generadorAleatorio.nextInt(respuestasDefault.size());
-            respuesta = respuestasDefault.get(index);
+            int index = generadorAleatorio.nextInt(respuestasPorDefecto.size());
+            respuesta = respuestasPorDefecto.get(index);
         }
         return respuesta;
     }

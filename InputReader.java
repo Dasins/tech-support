@@ -24,13 +24,13 @@ public class InputReader
      * Read a line of text from standard input (the text terminal),
      * and return it as a String.
      *
-     * @return  A String typed by the user.
+     * @return  La primera palabra de la cadena introducida por el usuario.
      */
     public String getInput()
     {
         System.out.print("> ");         // print prompt
         String inputLine = reader.nextLine();
-
-        return inputLine;
+        String[] partes = inputLine.split(" ");
+        return partes[0];
     }
 }
