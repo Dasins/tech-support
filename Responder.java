@@ -81,8 +81,13 @@ public class Responder
         String respuesta = "";
         respuesta = respuestas.get(frase);
         if (respuesta == null) {
-            int index = generadorAleatorio.nextInt(respuestasPorDefecto.size());
-            respuesta = respuestasPorDefecto.get(index);
+            if(respuestasPorDefecto.size() > 0){
+                int index = generadorAleatorio.nextInt(respuestasPorDefecto.size());
+                respuesta = respuestasPorDefecto.remove(index);
+            }
+            else {
+                respuesta = "Lo siento, me he quedado sin palabras";
+            }
         }
         return respuesta;
     }
