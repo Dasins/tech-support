@@ -15,7 +15,7 @@ public class Responder
 {
     Random generadorAleatorio;
     ArrayList<String> respuestasPorDefecto;
-    HashMap<String,String> respuestas;
+    HashMap<HashSet<String>,String> respuestas;
     
     /**
      * Construye un Responder
@@ -52,13 +52,24 @@ public class Responder
      * Anade respuestas  al servicio tecnico
      */
     private void anadirRespuestas(){
-        respuestas.put("lento","Si nota que su equipo funciona con lentitud, pruebe a animarlo. Eso le dara confianza");
-        respuestas.put("hardware","No encontramos ninguna anomalia en el hardware. Por favor, revise su software?");
-        respuestas.put("software","No encontramos ninguna anomalia en el software, Por favor, revise su hardware");
-        respuestas.put("precio","El precio de la reparacion se determina con una moneda: Cara el pulmon izquierdo, cruz el derecho");
-        respuestas.put("reclamacion","En estos momentos no podemos tramitar su reclamacion debido a una desgana generalizada.");
-        respuestas.put("virus","Pruebe con paracetamol y mucha agua");
-        respuestas.put("internet","while(internet == false){router.restart()}");
+        HashSet<String> set1 = new HashSet<>();
+        set1.add("ruido");
+        set1.add("ventilador");
+        
+        HashSet<String> set2 = new HashSet<>();
+        set2.add("ruido");
+        
+        HashSet<String> set3 = new HashSet<>();
+        set3.add("ventilador");
+        
+        HashSet<String> set4 = new HashSet<>();
+        set4.add("internet");
+        set4.add("conecta");
+        
+        respuestas.put(set1,"Es probable que su ventilador este obstruido, preparase para una batalla epica contra la suciedad");
+        respuestas.put(set2,"El ruido que escucha puede ser producto de unos vecinos pocos civicos");
+        respuestas.put(set3,"Si el ventilador se ha detenido, pruebe a girarlo de manera manual");
+        respuestas.put(set4,"Mantenga el cable o su dispositivo WiFi elevado unos 2.5m sobre el suelo para restablecer la conexion");
     }
     
     /**
@@ -67,17 +78,9 @@ public class Responder
      */
     public String generateResponse(HashSet<String> frase)
     {
-        String respuesta = "Fallo";
-        boolean coincidencia = false;
-        Iterator<String> it = frase.iterator();
-        while(!coincidencia && it.hasNext()) {
-            String palabra = it.next();
-            respuesta = respuestas.get(palabra);
-            if(respuesta != null){
-                coincidencia = true;
-            }    
-        }
-        if (!coincidencia) {
+        String respuesta = "";
+        respuesta = respuestas.get(frase);
+        if (respuesta == null) {
             int index = generadorAleatorio.nextInt(respuestasPorDefecto.size());
             respuesta = respuestasPorDefecto.get(index);
         }
